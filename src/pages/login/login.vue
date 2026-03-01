@@ -24,6 +24,10 @@
           <text class="btn-icon">📱</text>
           <text class="btn-text">微信一键登录</text>
         </button>
+        <button class="mock-login-btn" @click="handleMockLogin">
+          <text class="btn-icon">🔧</text>
+          <text class="btn-text">测试登录（开发用）</text>
+        </button>
         <!-- #endif -->
 
         <!-- #ifdef H5 -->
@@ -308,7 +312,8 @@ const showTerms = () => {
     }
   }
 
-  .wx-login-btn {
+  .wx-login-btn,
+  .mock-login-btn {
     width: 600rpx;
     height: 96rpx;
     background: #FFFFFF;
@@ -317,7 +322,7 @@ const showTerms = () => {
     align-items: center;
     justify-content: center;
     box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
-    margin-bottom: 40rpx;
+    margin-bottom: 20rpx;
 
     .btn-icon {
       font-size: 40rpx;
@@ -329,6 +334,11 @@ const showTerms = () => {
       font-weight: 500;
       color: #333333;
     }
+  }
+
+  .mock-login-btn {
+    background: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40rpx;
   }
 
   .privacy-tip {
