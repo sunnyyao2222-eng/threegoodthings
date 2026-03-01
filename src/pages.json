@@ -49,21 +49,15 @@
 		"list": [
 			{
 				"pagePath": "pages/index/index",
-				"text": "首页",
-				"iconPath": "static/tabbar/home.png",
-				"selectedIconPath": "static/tabbar/home-active.png"
+				"text": "首页"
 			},
 			{
 				"pagePath": "pages/tree/tree",
-				"text": "树木",
-				"iconPath": "static/tabbar/tree.png",
-				"selectedIconPath": "static/tabbar/tree-active.png"
+				"text": "树木"
 			},
 			{
 				"pagePath": "pages/profile/profile",
-				"text": "我的",
-				"iconPath": "static/tabbar/profile.png",
-				"selectedIconPath": "static/tabbar/profile-active.png"
+				"text": "我的"
 			}
 		]
 	},
