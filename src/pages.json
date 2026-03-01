@@ -17,14 +17,22 @@
 		{
 			"path": "pages/tree/tree",
 			"style": {
-				"navigationBarTitleText": "我的树木",
-				"navigationBarBackgroundColor": "#F0F9FF"
+				"navigationBarTitleText": "森林",
+				"navigationStyle": "custom",
+				"navigationBarBackgroundColor": "#2D1B69"
 			}
 		},
 		{
 			"path": "pages/profile/profile",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/mytree/mytree",
+			"style": {
+				"navigationBarTitleText": "我的树木",
+				"navigationBarBackgroundColor": "#F0F9FF"
 			}
 		},
 		{
@@ -53,7 +61,7 @@
 			},
 			{
 				"pagePath": "pages/tree/tree",
-				"text": "树木"
+				"text": "森林"
 			},
 			{
 				"pagePath": "pages/profile/profile",
