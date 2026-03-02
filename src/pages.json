@@ -95,5 +95,26 @@
 		"navigationBarTitleText": "三件好事",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8"
+	},
+	"h5": {
+		"devServer": {
+			"port": 8080,
+			"https": false
+		},
+		"router": {
+			"mode": "hash",
+			"base": "/"
+		},
+		"optimization": {
+			"treeShaking": {
+				"enable": true
+			}
+		},
+		"title": "Three Good Things - 三件好事",
+		"template": "./index.html"
+	},
+	"condition": {
+		"current": 0,
+		"list": []
 	}
 }

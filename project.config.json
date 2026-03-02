@@ -1,4 +1,6 @@
 {
+  "miniprogramRoot": "dist/dev/mp-weixin/",
+  "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
     "es6": true,
     "postcss": true,
@@ -21,5 +23,6 @@
     "include": []
   },
   "appid": "wxcf6f4c781d54b799",
-  "editorSetting": {}
+  "editorSetting": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }

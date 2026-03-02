@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(find E:\\\\cluade3\\\\three-good-things\\\\产品界面效果图制作 \\(1\\)\\\\src:*)",
+      "Bash(find E:\\\\cluade3\\\\three-good-things\\\\产品界面效果图制作 \\(1\\)\\\\guidelines:*)",
+      "Bash(find E:\\\\cluade3\\\\three-good-things\\\\产品界面效果图制作 \\(1\\)\\\\src\\\\app\\\\components:*)",
+      "Bash(npm run:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm install:*)",
+      "Bash(cp:*)",
+      "Bash(curl:*)",
+      "Bash(netstat:*)",
+      "Bash(bash:*)",
+      "Bash(ping:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "figma"
+  ]
+}

@@ -1,0 +1,203 @@
+// 响应式断点
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1440px;
+
+// 响应式混合宏
+@mixin mobile {
+  @media (max-width: #{$mobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $mobile) and (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+// 响应式容器
+@mixin container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32rpx;
+
+  @include tablet {
+    max-width: 960px;
+    padding: 0 48rpx;
+  }
+
+  @include desktop {
+    max-width: 1200px;
+    padding: 0 64rpx;
+  }
+
+  @include large-desktop {
+    max-width: 1400px;
+  }
+}
+
+// 响应式字体大小
+@mixin responsive-font($mobile-size, $desktop-size) {
+  font-size: $mobile-size;
+
+  @include desktop {
+    font-size: $desktop-size;
+  }
+}
+
+// 响应式间距
+@mixin responsive-spacing($property, $mobile-value, $desktop-value) {
+  #{$property}: $mobile-value;
+
+  @include desktop {
+    #{$property}: $desktop-value;
+  }
+}
+
+// 网格布局
+@mixin grid($columns: 1, $gap: 32rpx) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+
+  @include tablet {
+    grid-template-columns: repeat(#{$columns * 2}, 1fr);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(#{$columns * 3}, 1fr);
+  }
+}
+
+// Flex布局
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// 卡片样式
+@mixin card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+
+  @include desktop {
+    padding: 48rpx;
+    border-radius: 32rpx;
+  }
+}
+
+// 按钮样式
+@mixin button {
+  padding: 24rpx 48rpx;
+  border-radius: 48rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  @include desktop {
+    padding: 28rpx 64rpx;
+    font-size: 32rpx;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+// 文本截断
+@mixin text-ellipsis($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// 滚动条样式
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+}
+
+// 动画
+@mixin fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 深色模式
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// 触摸设备
+@mixin touch-device {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+// 鼠标设备
+@mixin mouse-device {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
