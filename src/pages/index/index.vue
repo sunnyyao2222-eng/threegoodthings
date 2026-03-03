@@ -23,7 +23,7 @@
       <view class="info-badges">
         <view class="badge streak-badge">
           <text class="icon">🔥</text>
-          <text class="text">{{ $t('calendar.streak') }} {{ authStore.user?.streakDays || 0 }} {{ $t('calendar.days') }}</text>
+          <text class="text">{{ $t('calendar.streak') }} {{ authStore.user?.streak_days || 0 }} {{ $t('calendar.days') }}</text>
         </view>
         <view class="badge progress-badge">
           <text class="text">{{ completedCount }}/{{ maxThings }}</text>
@@ -53,7 +53,7 @@
         ></view>
       </view>
       <text class="tree-stage">{{ treeStageText }}</text>
-      <text class="tree-points">{{ authStore.user?.totalPoints || 0 }} {{ $t('tree.points') }}</text>
+      <text class="tree-points">{{ authStore.user?.total_points || 0 }} {{ $t('tree.points') }}</text>
     </view>
 
     <!-- 当前输入框 -->
@@ -182,13 +182,13 @@ const showVIPTip = computed(() => !authStore.isVIP && completedCount.value >= 3)
 
 const treeIcon = computed(() => {
   const icons = ['🌰', '🌱', '🌿', '🌳', '🌲', '🌴']
-  const stage = authStore.user?.treeStage || 0
+  const stage = authStore.user?.tree_stage || 0
   return icons[Math.min(stage, icons.length - 1)]
 })
 
 const treeStageText = computed(() => {
   const stages = ['seed', 'sprout', 'seedling', 'sapling', 'tree', 'forest']
-  const stage = authStore.user?.treeStage || 0
+  const stage = authStore.user?.tree_stage || 0
   return t(`tree.stage.${stages[Math.min(stage, stages.length - 1)]}`)
 })
 

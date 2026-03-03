@@ -32,11 +32,11 @@
       <text class="section-title">{{ $t('profile.stats.title') }}</text>
       <view class="stats-grid">
         <view class="stat-item">
-          <text class="stat-value">{{ authStore.user?.streakDays || 0 }}</text>
+          <text class="stat-value">{{ authStore.user?.streak_days || 0 }}</text>
           <text class="stat-label">{{ $t('profile.stats.streakDays') }}</text>
         </view>
         <view class="stat-item">
-          <text class="stat-value">{{ authStore.user?.totalPoints || 0 }}</text>
+          <text class="stat-value">{{ authStore.user?.total_points || 0 }}</text>
           <text class="stat-label">{{ $t('tree.points') }}</text>
         </view>
         <view class="stat-item">
@@ -128,7 +128,7 @@ const showAuthModal = ref(false)
 
 const treeStageText = computed(() => {
   const stages = ['seed', 'sprout', 'seedling', 'sapling', 'tree', 'forest']
-  const stage = authStore.user?.treeStage || 0
+  const stage = authStore.user?.tree_stage || 0
   return t(`tree.stage.${stages[Math.min(stage, stages.length - 1)]}`)
 })
 
