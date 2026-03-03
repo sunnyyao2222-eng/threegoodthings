@@ -1,0 +1,28 @@
+# Supabase 配置信息
+
+## 请手动填写以下信息
+
+### Project URL
+```
+https://你的项目ID.supabase.co
+```
+https://vebrsngzdlxyzjbklssf.supabase.co   
+### Anon Public Key
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlYnJzbmd6ZGx4eXpqYmtsc3NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1Mzk5ODgsImV4cCI6MjA4ODExNTk4OH0.zhSii7Qv4FGLpUJm2ew_spP_JSkTYqPRMilWLVr77BA
+```
+
+## 填写说明
+
+1. 在 Supabase Dashboard 左侧点击 Settings（设置图标）
+2. 点击 API
+3. 找到 Project URL - 复制整个 URL
+4. 找到 Project API keys - 复制 anon public 那一行的 key
+
+## 填写完成后
+
+把这个文件的内容发给我，或者告诉我：
+- 你的项目 ID（URL 中的那串字符）
+- anon key 的前 20 个字符
+
+我就可以帮你配置了！

@@ -156,8 +156,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAuthStore } from '@/store/auth'
-import { recordApi } from '@/api/backend'
+import { useAuthStore } from '@/store/auth-supabase'
+import { recordApi } from '@/api/records-supabase'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import AIChat from '@/components/AIChat.vue'
 import AuthModal from '@/components/AuthModal.vue'

@@ -80,7 +80,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/store/auth-supabase'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

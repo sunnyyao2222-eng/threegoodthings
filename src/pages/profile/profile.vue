@@ -117,7 +117,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/store/auth-supabase'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import AuthModal from '@/components/AuthModal.vue'
 
