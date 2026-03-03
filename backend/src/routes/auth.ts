@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Router, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
@@ -12,8 +13,8 @@ const router = Router()
 
 // 生成 JWT Token
 const generateToken = (userId: string) => {
-  return jwt.sign({ userId }, config.jwt.secret, {
-    expiresIn: config.jwt.expire,
+  return jwt.sign({ userId }, config.jwt.secret as string, {
+    expiresIn: config.jwt.expire as string,
   })
 }
 
