@@ -1,0 +1,20 @@
+version: 1
+services:
+  - type: web
+    name: three-good-things-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
