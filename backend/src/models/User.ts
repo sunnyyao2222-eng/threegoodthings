@@ -78,8 +78,6 @@ const userSchema = new Schema<IUser>(
   }
 )
 
-// 索引
-userSchema.index({ email: 1 })
-userSchema.index({ googleId: 1 })
+// 索引已在 schema 定义中通过 unique: true 自动创建，无需重复定义
 
 export const User = mongoose.model<IUser>('User', userSchema)

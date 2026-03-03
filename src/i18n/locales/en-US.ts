@@ -19,6 +19,9 @@ export default {
     yesterday: 'Yesterday',
     thisWeek: 'This Week',
     thisMonth: 'This Month',
+    email: 'Email',
+    password: 'Password',
+    nickname: 'Nickname',
   },
 
   nav: {

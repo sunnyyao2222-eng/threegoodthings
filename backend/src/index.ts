@@ -23,7 +23,16 @@ const init = async () => {
   // 中间件
   app.use(helmet())
   app.use(cors({
-    origin: config.frontend.url,
+    origin: (origin, callback) => {
+      // 开发环境允许所有 localhost 端口
+      if (!origin || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+        callback(null, true)
+      } else if (origin === config.frontend.url) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
     credentials: true,
   }))
   app.use(morgan('dev'))

@@ -19,6 +19,9 @@ export default {
     yesterday: '昨天',
     thisWeek: '本周',
     thisMonth: '本月',
+    email: '邮箱',
+    password: '密码',
+    nickname: '昵称',
   },
 
   nav: {

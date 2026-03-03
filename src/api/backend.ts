@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosError } from 'axios'
+import axios, { type AxiosInstance, type AxiosError } from 'axios'
+import { storage } from '@/utils/web-storage'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 
@@ -14,7 +15,7 @@ const apiClient: AxiosInstance = axios.create({
 // 请求拦截器 - 添加 token
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('auth-token')
+    const token = storage.get<string>('auth-token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -29,13 +30,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response.data,
   (error: AxiosError<any>) => {
-    if (error.response?.status === 401) {
-      // Token 过期，清除本地存储
-      localStorage.removeItem('auth-token')
-      localStorage.removeItem('user-info')
-      window.location.href = '/login'
-    }
-
+    // 不要在这里处理 401，让调用方自己处理
     const message = error.response?.data?.message || error.message || 'Network error'
     return Promise.reject(new Error(message))
   }

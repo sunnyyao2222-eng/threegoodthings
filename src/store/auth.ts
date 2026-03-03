@@ -44,8 +44,13 @@ export const useAuthStore = defineStore('auth', () => {
             storage.set('user-info', user.value)
           }
         } catch (error) {
-          // Token 无效，清除
-          logout()
+          // Token 无效，清除并游客登录
+          console.log('Token invalid, switching to guest mode')
+          token.value = null
+          user.value = null
+          storage.remove('auth-token')
+          storage.remove('user-info')
+          await guestLogin()
         }
       } else {
         // 自动游客登录
@@ -53,7 +58,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
     } catch (error) {
       console.error('Auth init error:', error)
-      await guestLogin()
+      // 初始化失败时不自动游客登录，避免循环
     }
   }
 
@@ -250,13 +255,12 @@ export const useAuthStore = defineStore('auth', () => {
     storage.remove('auth-token')
     storage.remove('user-info')
 
-    // 重新游客登录
-    guestLogin()
-
     uni.showToast({
       title: 'Logged out',
       icon: 'success',
     })
+
+    // 不自动游客登录，让用户手动选择
   }
 
   return {

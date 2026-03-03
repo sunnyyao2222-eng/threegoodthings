@@ -195,8 +195,15 @@ const treeStageText = computed(() => {
 const bubbleColors = ['#FF7E95', '#FFD56B', '#FF9F43', '#A7F3D0', '#FFA6C9']
 
 onMounted(async () => {
-  await authStore.init()
-  await loadTodayRecords()
+  try {
+    await authStore.init()
+    // 只有在认证成功后才加载记录
+    if (authStore.isAuthenticated) {
+      await loadTodayRecords()
+    }
+  } catch (error) {
+    console.error('Mount error:', error)
+  }
 })
 
 const loadTodayRecords = async () => {
@@ -319,18 +326,19 @@ const goToVIP = () => {
 
 .home-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%);
+  background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 50%, #FFF5F7 100%);
   padding-bottom: 120rpx;
 }
 
 .top-nav {
   @include flex-between;
   padding: 32rpx;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
 }
 
 .nav-left {
@@ -342,12 +350,14 @@ const goToVIP = () => {
 .logo {
   width: 64rpx;
   height: 64rpx;
+  border-radius: 12rpx;
 }
 
 .app-name {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.5rpx;
 }
 
 .nav-right {
@@ -357,16 +367,19 @@ const goToVIP = () => {
 }
 
 .login-btn {
-  padding: 16rpx 32rpx;
-  background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
-  border-radius: 48rpx;
+  padding: 18rpx 36rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50rpx;
   color: #ffffff;
   font-size: 28rpx;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
 
   &:active {
-    transform: scale(0.95);
+    transform: translateY(2rpx);
+    box-shadow: 0 2rpx 8rpx rgba(102, 126, 234, 0.3);
   }
 }
 
@@ -375,16 +388,25 @@ const goToVIP = () => {
   align-items: center;
   gap: 12rpx;
   cursor: pointer;
+  padding: 8rpx 16rpx 8rpx 8rpx;
+  border-radius: 50rpx;
+  transition: all 0.3s;
+
+  &:active {
+    background: rgba(0, 0, 0, 0.05);
+  }
 }
 
 .avatar {
   width: 56rpx;
   height: 56rpx;
   border-radius: 50%;
+  border: 2rpx solid rgba(102, 126, 234, 0.2);
 }
 
 .nickname {
   font-size: 28rpx;
+  font-weight: 500;
   color: #333;
   max-width: 120rpx;
   overflow: hidden;
@@ -405,11 +427,17 @@ const goToVIP = () => {
 .badge {
   display: flex;
   align-items: center;
-  gap: 8rpx;
-  padding: 16rpx 24rpx;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 48rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  gap: 10rpx;
+  padding: 18rpx 28rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+
+  &:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  }
 }
 
 .icon {
@@ -418,29 +446,33 @@ const goToVIP = () => {
 
 .text {
   font-size: 28rpx;
-  color: #666;
+  font-weight: 500;
+  color: #555;
 }
 
 .vip-badge {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  box-shadow: 0 4rpx 16rpx rgba(255, 165, 0, 0.3);
 
   .text {
     color: #ffffff;
-    font-weight: bold;
+    font-weight: 600;
   }
 }
 
 .tree-section {
   margin: 32rpx;
-  padding: 48rpx;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 56rpx 48rpx;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 32rpx;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
 
   &:active {
-    transform: scale(0.98);
+    transform: translateY(4rpx);
+    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -452,8 +484,9 @@ const goToVIP = () => {
 }
 
 .tree-icon {
-  font-size: 120rpx;
+  font-size: 140rpx;
   line-height: 200rpx;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.1));
 }
 
 .bubble {
@@ -461,33 +494,36 @@ const goToVIP = () => {
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  opacity: 0.6;
+  opacity: 0.7;
   animation: float 4s ease-in-out infinite;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
 }
 
 @keyframes float {
   0%, 100% {
     transform: translateY(0) scale(1);
-    opacity: 0.6;
+    opacity: 0.7;
   }
   50% {
-    transform: translateY(-30rpx) scale(1.2);
-    opacity: 0.8;
+    transform: translateY(-40rpx) scale(1.3);
+    opacity: 0.9;
   }
 }
 
 .tree-stage {
   display: block;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12rpx;
+  letter-spacing: 1rpx;
 }
 
 .tree-points {
   display: block;
-  font-size: 24rpx;
-  color: #999;
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #888;
 }
 
 .current-input {
@@ -496,13 +532,14 @@ const goToVIP = () => {
 
 .input-card {
   @include card;
-  animation: slideUp 0.3s ease;
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30rpx);
   }
   to {
     opacity: 1;
@@ -515,20 +552,29 @@ const goToVIP = () => {
 }
 
 .input-number {
-  font-size: 28rpx;
-  font-weight: 500;
-  color: #666;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #555;
+  letter-spacing: 0.5rpx;
 }
 
 .input-box {
   width: 100%;
-  min-height: 200rpx;
-  padding: 24rpx;
-  background: #f5f5f5;
-  border-radius: 16rpx;
-  font-size: 28rpx;
-  line-height: 1.6;
+  min-height: 220rpx;
+  padding: 28rpx;
+  background: #f8f9fa;
+  border-radius: 20rpx;
+  font-size: 30rpx;
+  line-height: 1.8;
   color: #333;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+
+  &:focus {
+    background: #ffffff;
+    border-color: rgba(102, 126, 234, 0.3);
+    box-shadow: 0 0 0 4rpx rgba(102, 126, 234, 0.1);
+  }
 }
 
 .input-footer {
@@ -538,17 +584,29 @@ const goToVIP = () => {
 
 .char-count {
   font-size: 24rpx;
+  font-weight: 500;
   color: #999;
 }
 
 .submit-btn {
   @include button;
-  background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #ffffff;
   border: none;
+  font-weight: 600;
+  font-size: 30rpx;
+  padding: 20rpx 48rpx;
+  box-shadow: 0 6rpx 20rpx rgba(102, 126, 234, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 4rpx 16rpx rgba(102, 126, 234, 0.4);
+  }
 
   &:disabled {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 
@@ -558,25 +616,28 @@ const goToVIP = () => {
 
 .vip-card {
   @include card;
-  background: linear-gradient(135deg, #FFF7E6 0%, #FFE7BA 100%);
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFE7BA 100%);
   text-align: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 165, 0, 0.15);
 }
 
 .vip-icon {
-  font-size: 80rpx;
-  margin-bottom: 16rpx;
+  font-size: 88rpx;
+  margin-bottom: 20rpx;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.1));
 }
 
 .vip-content {
-  margin-bottom: 24rpx;
+  margin-bottom: 28rpx;
 }
 
 .vip-title {
   display: block;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1a1a1a;
   margin-bottom: 8rpx;
+  letter-spacing: 0.5rpx;
 }
 
 .vip-btn {
@@ -584,6 +645,14 @@ const goToVIP = () => {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #ffffff;
   border: none;
+  font-weight: 600;
+  font-size: 30rpx;
+  box-shadow: 0 6rpx 20rpx rgba(255, 165, 0, 0.4);
+
+  &:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 4rpx 16rpx rgba(255, 165, 0, 0.4);
+  }
 }
 
 .celebration {
@@ -594,26 +663,31 @@ const goToVIP = () => {
   @include card;
   text-align: center;
   background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+  box-shadow: 0 8rpx 24rpx rgba(76, 175, 80, 0.15);
 }
 
 .celebration-icon {
-  font-size: 80rpx;
+  font-size: 100rpx;
   display: block;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.1));
 }
 
 .celebration-title {
   display: block;
-  font-size: 40rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8rpx;
+  font-size: 42rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12rpx;
+  letter-spacing: 1rpx;
 }
 
 .celebration-text {
   display: block;
-  font-size: 28rpx;
-  color: #666;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #555;
+  line-height: 1.6;
 }
 
 .completed-section {
@@ -622,84 +696,110 @@ const goToVIP = () => {
 
 .section-header {
   @include flex-between;
-  padding: 24rpx;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 16rpx;
+  padding: 28rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
   cursor: pointer;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+
+  &:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  }
 }
 
 .section-title {
-  font-size: 28rpx;
-  font-weight: 500;
-  color: #333;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.5rpx;
 }
 
 .toggle-icon {
-  font-size: 24rpx;
-  color: #999;
+  font-size: 28rpx;
+  color: #888;
+  transition: transform 0.3s;
 }
 
 .completed-list {
-  margin-top: 16rpx;
+  margin-top: 20rpx;
 }
 
 .completed-item {
   @include card;
-  margin-bottom: 16rpx;
-  animation: fadeIn 0.3s ease;
+  margin-bottom: 20rpx;
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+
+  &:active {
+    transform: translateY(2rpx);
+    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  }
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10rpx);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .item-header {
   @include flex-between;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
 }
 
 .item-number {
-  font-size: 24rpx;
-  font-weight: 500;
-  color: #4ECDC4;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
 }
 
 .item-time {
   font-size: 24rpx;
+  font-weight: 500;
   color: #999;
 }
 
 .item-content {
-  font-size: 28rpx;
-  line-height: 1.6;
+  font-size: 30rpx;
+  line-height: 1.8;
   color: #333;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
+  word-break: break-word;
 }
 
 .ai-feedback {
   display: flex;
   align-items: flex-start;
   gap: 12rpx;
-  padding: 16rpx;
-  background: #F0F9FF;
-  border-radius: 12rpx;
-  margin-bottom: 16rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  border-left: 4rpx solid #667eea;
 }
 
 .feedback-icon {
-  font-size: 28rpx;
+  font-size: 32rpx;
+  line-height: 1;
 }
 
 .feedback-text {
   flex: 1;
-  font-size: 24rpx;
-  line-height: 1.5;
-  color: #666;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: #555;
+  font-weight: 500;
 }
 
 .item-footer {
